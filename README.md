@@ -1,8 +1,6 @@
 # Svelte + Carbon UI + Flask Example
 
-This repo contains a simple example of integrating a Python back-end with a JS front-end using IBM's UI library.
-
-Using:
+This repo contains a simple example of integrating a Python back-end with a JS front-end using IBM's UI library. Technologies used include:
 
 - [Flask](https://flask.palletsprojects.com/en/2.3.x/)
 - [Svelte](https://svelte.dev/)
