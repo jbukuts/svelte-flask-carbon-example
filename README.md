@@ -10,11 +10,9 @@ Using:
 
 ## Design
 
-For the design of this application the Flask backend
+For the design of this application, the Flask back-end contains both REST APIs as well as some paths to serve static assets. This means that after the static assets of the Svelte front-end have been built they are served via the Flask back-end.
 
-This means that after the static assets of the Svelte front-end have been built
-
-Lastly, the top-level `package.json` exists to facilitate a simpler DX while working. It uses an [NPM workspace]() to easily call scripts that the front-end client contains.
+Lastly, the top-level `package.json` facilitates a simpler DX while working. It uses an [NPM workspace]() to quickly call scripts that the front-end client contains.
 
 ## Getting started
 
@@ -26,7 +24,7 @@ npm ci
 
 This will install all of the dependencies for both the Svelte front-end and the Python backend
 
-> Please note the `preinstall` script in the top level `package.json` in this repository. If this command, or any other python related command, fails you may need to add an alias to your shell config.
+> Please note the `preinstall` script in the top-level `package.json` in this repository. If this command, or any other python-related command, fails you may need to add an alias to your shell config.
 
 After installing all the dependencies you can run
 
@@ -34,14 +32,24 @@ After installing all the dependencies you can run
 npm run dev
 ```
 
-With this, the development application should now be live at `http://localhost:5000/`
+With this, the development version of the client should now be live at `http://localhost:5173/`.
 
-Any changes made to the client application should result in an automatic rebuild, however, if viewing the webpage you will need to refresh to see changes.
+> Note that the development version of the server will be hosted on port 5000. Backend API requests to `/api/*` will be proxied via the vite dev server.
+
+You also have the option to run
+
+```bash
+npm run dev-static
+```
+
+Much like the previous command it will stand up a development instance of the back-end service at port 5000, however, instead of serving the front-end via the vite dev server the back-end instead serves the static files and will rebuild them on any changes. 
+
+> Any changes made to the client application will result in an automatic rebuild, however, if viewing the webpage you will need to refresh to see changes.
 
 ## Deployment
 
 A simple `Dockerfile` as well as a bash script to build an image has also been included in this repository if you wish to deploy via Docker.
 
-The `Docker` file will copy only what's needed to deploy the app (the `/client/dist` folder, `server.py`, and `requirements.txt`) and expose the default port Flask uses.
+The `Docker` file will copy only what's needed to deploy the app (the `/client/dist` folder, `/server` folder, and `requirements.txt`) and expose the default port Flask uses.
 
-the default image name that will be generated is `flask-svelte-carbon-image`.
+The default image name that will be generated is `flask-svelte-carbon-image`.
