@@ -22,7 +22,7 @@
     "js"
   ],
   "author": "jbukuts",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "concurrently": "^8.2.0"
   }
