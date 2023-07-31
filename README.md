@@ -4,15 +4,15 @@ This repo contains a simple example of integrating a Python back-end with a JS f
 
 Using:
 
-- Flask
-- Svelte
-- Carbon UI
+- [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+- [Svelte](https://svelte.dev/)
+- [Carbon UI](https://carbon-components-svelte.onrender.com/)
 
 ## Design
 
 For the design of this application, the Flask back-end contains both REST APIs as well as some paths to serve static assets. This means that after the static assets of the Svelte front-end have been built they are served via the Flask back-end.
 
-Lastly, the top-level `package.json` facilitates a simpler DX while working. It uses an [NPM workspace]() to quickly call scripts that the front-end client contains.
+Lastly, the top-level `package.json` facilitates a simpler DX while working. It uses an [NPM workspace](https://docs.npmjs.com/cli/v7/using-npm/workspaces) to quickly call scripts that the front-end client contains.
 
 ## Getting started
 
