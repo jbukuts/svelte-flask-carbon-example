@@ -13,8 +13,6 @@ ENV ENV='production'
 # Move required items into working directory
 COPY /client/dist /base/client/dist
 COPY /server/ /base/server
-
-# COPY server.py /base/server.py
 COPY requirements.txt /base/requirements.txt
 
 # Instal python dependencies
@@ -23,5 +21,4 @@ RUN pip install -r requirements.txt
 # Expose port and start server
 EXPOSE 5000
 
-# CMD [ "flask", "run" ]
 CMD [ "python", "./server/server.py" ]
