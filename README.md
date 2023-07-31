@@ -51,3 +51,9 @@ A simple `Dockerfile` as well as a bash script to build an image has also been i
 The `Docker` file will copy only what's needed to deploy the app (the `/client/dist` folder, `/server` folder, and `requirements.txt`) and expose the default port Flask uses.
 
 The default image name that will be generated is `flask-svelte-carbon-image`.
+
+There are some docker utility commands in `package.json` as well, such as:
+- `npm run build:dev` to build a "hackathon" docker image
+- `npm run docker:run` to start the hackathon image, and open localhost in the browser
+- `npm run docker:stop` to stop running hackathon container
+- `npm run docker:clean` to remove stopped containers. !Note if you have other docker containers from other projects, this will remove them as well.

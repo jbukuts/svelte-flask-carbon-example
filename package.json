@@ -4,11 +4,17 @@
   "description": "Example of integrating a Python back-end with a JS front-end using IBM's UI library",
   "scripts": {
     "preinstall": "pip install -r requirements.txt",
+    "postinstall": "chmod ux *.sh",
     "dev-static": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\" ",
     "dev": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client-live\" ",
     "dev:client": "npm run build:watch --workspace=client",
     "dev:server": "python ./server/server.py",
-    "dev:client-live": "npm run dev --workspace=client"
+    "dev:client-live": "npm run dev --workspace=client",
+    "docker:build:dev": "docker build -t hackathon .",
+    "docker:build": "./create-image.sh",
+    "docker:run": "concurrently \"docker run -p 8000:5000 --name hackathon hackathon\" \"open http://localhost:8000\"",
+    "docker:stop": "docker ps -a -q --filter=\"name=hackathon\"",
+    "docker:clean": "./clean-containers.sh"
   },
   "workspaces": [
     "client"
