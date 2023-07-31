@@ -4,7 +4,7 @@
   let randomNum = null;
 
   const getRandomNum = () => {
-    fetch("/rand").then(async (v) => {
+    fetch("/api/rand").then(async (v) => {
       const res = await v.json();
       randomNum = res.num;
     });

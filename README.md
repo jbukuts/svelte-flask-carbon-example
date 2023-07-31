@@ -21,7 +21,7 @@ Lastly, the top-level `package.json` exists to facilitate a simpler DX while wor
 Begin by running
 
 ```bash
-npm install
+npm ci
 ```
 
 This will install all of the dependencies for both the Svelte front-end and the Python backend
