@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # start with generating static front-end assets
-npm i
+npm ci
 npm run build --workspace=client
 
 # build the actual docker image

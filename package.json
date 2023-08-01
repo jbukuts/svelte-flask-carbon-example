@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Example of integrating a Python back-end with a JS front-end using IBM's UI library",
   "scripts": {
-    "preinstall": "pip install -r requirements.txt",
+    "preinstall": "python -m pip install -r requirements.txt",
+    "postinstall": "chmod +x *.sh",
     "dev-static": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\" ",
     "dev": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client-live\" ",
     "dev:client": "npm run build:watch --workspace=client",
     "dev:server": "python ./server/server.py",
-    "dev:client-live": "npm run dev --workspace=client"
+    "dev:client-live": "npm run dev --workspace=client",
+    "docker:build": "./create-image.sh",
+    "docker:run": "concurrently \"docker run -p 8000:5000 --rm --name svelte-flask-carbon-example flask-svelte-carbon-image\" \"opener http://localhost:8000\"",
+    "docker:clean": "./clean-containers.sh"
   },
   "workspaces": [
     "client"
@@ -24,6 +28,7 @@
   "author": "jbukuts",
   "license": "Apache-2.0",
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "opener": "^1.5.2"
   }
 }
