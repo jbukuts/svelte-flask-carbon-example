@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Example of integrating a Python back-end with a JS front-end using IBM's UI library",
   "scripts": {
-    "preinstall": "pip install -r requirements.txt",
+    "preinstall": "python -m pip install -r requirements.txt",
     "postinstall": "chmod +x *.sh",
     "dev-static": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\" ",
     "dev": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client-live\" ",
