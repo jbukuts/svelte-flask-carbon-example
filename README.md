@@ -1,4 +1,4 @@
-# Vest WatsonX Challenge
+# VEST Squad WatsonX Challenge
 
 This repo contains a simple example of integrating a Python back-end with a JS front-end using IBM's UI library. Technologies used include:
 
