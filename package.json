@@ -8,11 +8,14 @@
     "dev-static": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\" ",
     "dev": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client-live\" ",
     "dev:client": "npm run build:watch --workspace=client",
-    "dev:server": "python ./server/server.py",
     "dev:client-live": "npm run dev --workspace=client",
+    "dev:server": "python ./server/server.py",
     "docker:build": "./create-image.sh",
-    "docker:run": "concurrently \"docker run -p 8000:5000 --rm --name svelte-flask-carbon-example flask-svelte-carbon-image\" \"opener http://localhost:8000\"",
-    "docker:clean": "./clean-containers.sh"
+    "docker:run": "concurrently \"docker run -p 8000:5000 --rm --name $npm_package_name $npm_package_name:$npm_package_version\" \"opener http://localhost:8000\"",
+    "docker:clean": "./clean-containers.sh",
+    "docker:start": "npm run docker:clean && npm run docker:build && npm run docker:run",
+    "var:image-name": "echo ${npm_package_name}",
+    "var:image-version": "echo ${npm_package_version}"
   },
   "workspaces": [
     "client"

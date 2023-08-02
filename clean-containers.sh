@@ -11,7 +11,7 @@ LOG_FILE="/dev/null"
 echo $npm_package_name
 
 # Make sure user really wants to.
-DOCKER_IMAGE_NAME="flask-svelte-carbon-image"
+DOCKER_IMAGE_NAME=$(npm run var:image-name -s)
 read -p "Remove all containers and images for ${BOLD}${UNDL}$DOCKER_IMAGE_NAME${NORM}? (y/n)" confirm ;
 echo "" ;
 
