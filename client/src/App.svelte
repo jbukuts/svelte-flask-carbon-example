@@ -1,6 +1,6 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import RandomNum from './lib/RandomNum.svelte';
+  import svelteLogo from "./assets/svelte.svg";
+  import RandomNum from "./lib/RandomNum.svelte";
 </script>
 
 <main>
@@ -11,7 +11,10 @@
   </div>
   <h1>Svelte + Carbon UI + Flask</h1>
 
-  <p>Simple example page that uses a Svelte front-end SPA with Carbon UI to interact with a Python Flask REST API</p>
+  <p>
+    Simple example page that uses a Svelte front-end SPA with Carbon UI to
+    interact with a Python Flask REST API
+  </p>
 
   <p>Click button below to get a random number from a REST API</p>
 
