@@ -1,7 +1,7 @@
 {
-  "name": "svelte-flask-carbon-example",
+  "name": "vest-watsonx-challenge",
   "version": "1.0.0",
-  "description": "Example of integrating a Python back-end with a JS front-end using IBM's UI library",
+  "description": "Integrating watsonx with WA or Slack",
   "scripts": {
     "preinstall": "python -m pip install -r requirements.txt",
     "postinstall": "chmod +x *.sh",
@@ -28,7 +28,6 @@
     "carbon-ui",
     "js"
   ],
-  "author": "jbukuts",
   "license": "Apache-2.0",
   "devDependencies": {
     "concurrently": "^8.2.0",
