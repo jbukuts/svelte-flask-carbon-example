@@ -1,4 +1,4 @@
-# Svelte + Carbon UI + Flask Example
+# Vest WatsonX Challenge
 
 This repo contains a simple example of integrating a Python back-end with a JS front-end using IBM's UI library. Technologies used include:
 
@@ -50,7 +50,7 @@ A simple `Dockerfile` as well as a bash script to build an image has also been i
 
 The `Docker` file will copy only what's needed to deploy the app (the `/client/dist` folder, `/server` folder, and `requirements.txt`) and expose the default port Flask uses.
 
-The default image name that will be generated is `flask-svelte-carbon-image`.
+The default image name that will be generated is the same as the package name in the `package.json`.
 
 There are some docker utility commands in `package.json` as well, such as:
 - `npm run docker:build` to build a docker image
