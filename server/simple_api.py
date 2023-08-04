@@ -1,4 +1,5 @@
 import random
+import time
 from flask import jsonify, make_response, request, Blueprint
 
 api = Blueprint('api', __name__)
@@ -31,3 +32,11 @@ def hello_post():
         return make_response('Error no name param in request body', 400, headers)
 
     return make_response(f"Hello, {name}!", 200, headers)
+
+@api.route("/timestamp", methods = ["GET"])
+def timestamp():
+    headers = { "Content-Type": "application/json" }
+    t = round(time.time(), 2)
+    data = { "time": f"{t}" }
+    print(data)
+    return make_response(jsonify(data), 200, headers)

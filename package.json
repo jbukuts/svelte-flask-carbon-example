@@ -6,7 +6,7 @@
     "preinstall": "python -m pip install -r requirements.txt",
     "postinstall": "chmod +x *.sh",
     "dev-static": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\" ",
-    "dev": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client-live\" ",
+    "dev": "concurrently --kill-others \"npm run dev:slack\" \"npm run dev:server\" \"npm run dev:client-live\"",
     "dev:client": "npm run build:watch --workspace=client",
     "dev:client-live": "npm run dev --workspace=client",
     "dev:server": "python ./server/server.py",
@@ -15,7 +15,9 @@
     "docker:clean": "./clean-containers.sh",
     "docker:start": "npm run docker:clean && npm run docker:build && npm run docker:run",
     "var:image-name": "echo ${npm_package_name}",
-    "var:image-version": "echo ${npm_package_version}"
+    "var:image-version": "echo ${npm_package_version}",
+    "dev:slack": "nodemon --watch slack ./slack/slack_app.py",
+    "ngrok": "./ngrok.sh"
   },
   "workspaces": [
     "client"
@@ -32,6 +34,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "concurrently": "^8.2.0",
+    "nodemon": "^3.0.1",
     "opener": "^1.5.2"
   }
 }
