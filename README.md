@@ -56,3 +56,14 @@ There are some docker utility commands in `package.json` as well, such as:
 - `npm run docker:build` to build a docker image
 - `npm run docker:run` to start the image, and open localhost in the browser
 - `npm run docker:clean` to remove containers using image, image itself, and dangling images
+
+## Slack App testing for local development:
+
+- Get latest slack env values from 1Password
+- Install the ngrok app from [https://ngrok.com/](https://ngrok.com/)
+- Join the [team hackathon slack](https://join.slack.com/t/resell-lab-ibm/shared_invite/zt-20ehtfi1f-1zUl2F6_xlV0NS7EDeJSVg)
+- Join the workspace channel `hackathon-bot`
+- Contact Karsten to get an auth token for NGROK. (The slack app only supports 1 events Request URL, so getting a token from Karsten will allow us to all start a tunnel on the same ngrok URL)
+- Authenticate your ngrok client: in your terminal type `ngrok config add-authtoken <AUTH_TOKEN>`
+- Run `npm run ngrok` alongside the running Flask server in order to allow slack to talk to your local server
+- Try messaging `start` in the hackathon-bot slack channel and looking at server logs to see how everything works.
