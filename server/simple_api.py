@@ -43,4 +43,5 @@ def discovery_query():
         return make_response('Required field "question" is missing from body', 400, headers)
 
     discovery_result = query_discovery(question)
-    return make_response(discovery_result, 200, headers)
+    json_response = jsonify({"answer": discovery_result})
+    return make_response(json_response, 200, headers)
