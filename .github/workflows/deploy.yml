@@ -1,0 +1,64 @@
+name: Deploy Service
+on:
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN
+permissions:
+  contents: read
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GITHUB_SHA: ${{ github.sha }}
+  IBM_CLOUD_REGION: us-east
+  ICR_REGION: global
+  RESOURCE_GROUP: vest-labs
+  ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
+  REGISTRY_HOSTNAME: private.icr.io
+  IMAGE_NAME: vest-watsonx-challenge
+  APP_NAEM: test
+  PORT: 5000
+  MIN_SCALE: 1
+  MAX_SCALE: 5
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install IBM Cloud CLI and Plugins
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud --version
+          ibmcloud config --check-version=false
+          ibmcloud plugin install -f code-engine
+          ibmcloud plugin install -f container-registry
+
+      - name: Authenticate with IBM Cloud CLI
+        run: ibmcloud login --apikey "${{secrets.IBM_CLOUD_API_KEY}}" -r "${{env.IBM_CLOUD_REGION}}" -g "${{env.RESOURCE_GROUP}}"
+
+      - name: Set Container Registry Region
+        run: |
+          ibmcloud cr region-set "${{env.ICR_REGION}}"
+          ibmcloud cr login
+
+      - name: Build Container Image
+        run: |
+          chmod +x ./create-image.sh
+          sh ./create-image.sh
+
+      - name: Push the image to ICR
+        run: |
+          docker tag 
+          docker push ${{env.REGISTRY_HOSTNAME}}/${{env.ICR_NAMESPACE}}/${{env.IMAGE_NAME}}:${{env.GITHUB_SHA}}
+
+      # need to set env secrets
+      - name: Deploy Revision to Code Engine
+        run: ibmcloud ce application update --name ${} --port ${{env.PORT}} --minscale $MIN_SCALE --maxscale $MAX_SCALE
