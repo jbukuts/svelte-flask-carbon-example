@@ -1,5 +1,6 @@
 import random
 from flask import jsonify, make_response, request, Blueprint
+from discovery_service import query_discovery
 
 api = Blueprint('api', __name__)
 
@@ -31,3 +32,16 @@ def hello_post():
         return make_response('Error no name param in request body', 400, headers)
 
     return make_response(f"Hello, {name}!", 200, headers)
+
+
+@api.route("/discovery/query", methods = ['POST'])
+def discovery_query():
+    headers = { "Content-Type": "application/json" }
+    
+    question = request.get_json().get('question')
+    if question is None:
+        return make_response('Required field "question" is missing from body', 400, headers)
+
+    discovery_result = query_discovery(question)
+    json_response = jsonify({"answer": discovery_result})
+    return make_response(json_response, 200, headers)
