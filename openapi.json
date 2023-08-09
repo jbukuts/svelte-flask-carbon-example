@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "",
-    "description": "",
+    "title": "VEST API service",
+    "description": "Integration endpoint used by WA and Slack",
     "termsOfService": "http://ibm.com",
     "contact": {
       "name": "",
@@ -17,50 +17,90 @@
   },
   "servers": [
     {
-      "url": "https://jsonplaceholder.typicode.com",
-      "description": ""
+      "url": "https://flask-test.15tn84ngy7k3.us-east.codeengine.appdomain.cloud",
+      "description": "IBM cloud deployment of VEST API service from https://github.com/ibm-build-lab/vest-watsonx-challenge"
     }
   ],
   "paths": {
-    "/todos/{amount}": {
-      "get": {
-        "operationId": "getTodos",
-        "parameters": [
-          {
-            "name": "amount",
-            "in": "path",
-            "description": "amout of todos to return in res",
-            "required": true,
-            "schema": {
-              "type": "integer"
+    "/api/discovery/query": {
+      "post": {
+        "summary": "Submits a question to watsonX for a generative AI response",
+        "operationId": "queryDiscovery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "origin": {
+                    "type": "string",
+                    "enum": [
+                      "SLACK",
+                      "WA"
+                    ],
+                    "description": "From where did the question originate",
+                    "example": "WA"
+                  },
+                  "question": {
+                    "type": "string",
+                    "description": "The question to be processed by WatsonX",
+                    "example": "What type of businesses benefit from Maximo?"
+                  },
+                  "product": {
+                    "type": "string",
+                    "enum": [
+                      "Maximo",
+                      "Instana",
+                      "Turbonomic",
+                      "Envizi",
+                      "QRadar",
+                      "Watson Assistant",
+                      "WatsonX.ai",
+                      "WatsonX.data",
+                      "WatsonX.governance"
+                    ],
+                    "description": "The product to which this question pertains",
+                    "example": "Maximo"
+                  }
+                },
+                "required": [
+                  "question"
+                ]
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "test endpoint",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
-                    "userId",
-                    "id",
-                    "title",
-                    "completed"
+                    "answer"
                   ],
                   "properties": {
-                    "userId": {
-                      "type": "integer"
-                    },
-                    "id": {
-                      "type": "integer"
-                    },
-                    "title": {
+                    "answer": {
                       "type": "string"
-                    },
-                    "completed": {
-                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
                     }
                   }
                 }
