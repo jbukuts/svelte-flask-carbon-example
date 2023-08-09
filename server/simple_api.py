@@ -33,7 +33,6 @@ def hello_post():
 
     return make_response(f"Hello, {name}!", 200, headers)
 
-
 @api.route("/discovery/query", methods = ['POST'])
 def discovery_query():
     headers = { "Content-Type": "application/json" }
