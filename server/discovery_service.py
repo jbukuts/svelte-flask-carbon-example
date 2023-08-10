@@ -62,7 +62,11 @@ def query_discovery(question):
     query_url = DISC_URL + "/v2/projects/" + DISC_PROJ_ID + "/query?version=2023-03-31"
     query_body = {
         'collection_ids': [collection_id],
-        'query': 'text:'+question
+        'query': 'text:'+question,
+        'passages': {
+            'enabled': True,
+            'per_document': True
+        }
     }
 
     print('query discovery documents: ' + query_url)
