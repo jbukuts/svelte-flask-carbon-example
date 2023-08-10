@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.9.13
+FROM --platform=linux/amd64 python:3.9.13 as build
 
 # Create app directory
 WORKDIR /base
