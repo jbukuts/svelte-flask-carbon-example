@@ -71,7 +71,7 @@ def query_discovery(question, product_name):
             'per_document': True
         }
     }
-    print('query_body: ' , query_body)
+
 
     print('query discovery documents: ' + query_url)
     print(query_body, flush=True)
@@ -80,7 +80,6 @@ def query_discovery(question, product_name):
     print('Received query result')
     query_resp = query.json()
 
-    print('query_resp: ' , query_resp)
 
     query_results = query_resp['results']
     results_len = len(query_results)
