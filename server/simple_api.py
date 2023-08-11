@@ -38,9 +38,11 @@ def discovery_query():
     headers = { "Content-Type": "application/json" }
     
     question = request.get_json().get('question')
+    product_name = request.get_json().get('product')
+
     if question is None:
         return make_response('Required field "question" is missing from body', 400, headers)
 
-    discovery_result = query_discovery(question)
+    discovery_result = query_discovery(question, product_name)
     json_response = jsonify({"answer": discovery_result})
     return make_response(json_response, 200, headers)

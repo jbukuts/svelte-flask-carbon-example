@@ -27,21 +27,24 @@ def get_access_token():
     r = requests.post(CLOUD_IAM_URL, data={"grant_type": "urn:ibm:params:oauth:grant-type:apikey", "apikey": DISC_KEY})
     return r.json()["access_token"]
 
-def get_collection_id(token, collection_name):
+def get_collection_ids(token, productname):
     collections_url = DISC_URL + "/v2/projects/" + DISC_PROJ_ID + "/collections?version=2023-03-31"
     print("Grab collection id values: " + collections_url)
     collections = requests.get(collections_url, 
                                headers={'Authorization': 'Bearer ' + token})
     resp = collections.json()
 
-    for item in resp['collections']:
-        if item['name'] == collection_name:
-            collection_id = item['collection_id']
-            print('match found - return collection_id: ' + collection_id)
-            return collection_id
+    collection_ids = []
 
-    print('collection name not found: ' + collection_name)
-    return None
+    for item in resp['collections']:
+        if productname in item['name']:
+            collection_ids.append(item['collection_id'])
+
+    if len(collection_ids) == 0:
+        print('No collection names were found for: ' + productname)
+    else:
+        print('Collection names were found: ' , collection_ids)
+        return collection_ids
 
 def sanitize_text(original):
     print('encoding original string: ')
@@ -53,21 +56,22 @@ def sanitize_text(original):
     perfecttext = re.sub(' +', ' ', perfecttext).strip('"')
     return perfecttext
 
-def query_discovery(question):
+def query_discovery(question, product_name):
     token = get_access_token()
     print("received access token")
 
-    collection_id = get_collection_id(token, DISC_COLLECTION)
+    collection_ids = get_collection_ids(token, product_name)
 
     query_url = DISC_URL + "/v2/projects/" + DISC_PROJ_ID + "/query?version=2023-03-31"
     query_body = {
-        'collection_ids': [collection_id],
+        'collection_ids': collection_ids,
         'query': 'text:'+question,
         'passages': {
             'enabled': True,
             'per_document': True
         }
     }
+    print('query_body: ' , query_body)
 
     print('query discovery documents: ' + query_url)
     print(query_body, flush=True)
@@ -75,6 +79,9 @@ def query_discovery(question):
     
     print('Received query result')
     query_resp = query.json()
+
+    print('query_resp: ' , query_resp)
+
     query_results = query_resp['results']
     results_len = len(query_results)
 
